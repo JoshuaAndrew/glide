@@ -2,6 +2,7 @@ package path
 
 import (
 	"os"
+	"fmt"
 	"path/filepath"
 
 	"github.com/xkeyideal/glide/godep/strip"
@@ -24,7 +25,9 @@ func StripVendor() error {
 		if path == searchPath {
 			return nil
 		}
-
+		if info == nil {
+			return fmt.Errorf("FileInfo is nil")
+		}
 		name := info.Name()
 		if name == "vendor" {
 			if _, err := os.Stat(path); err == nil {
